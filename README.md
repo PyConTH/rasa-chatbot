@@ -11,3 +11,12 @@ Simple Bot for short event
 
 # Deployment
 1. `docker-compose up`
+
+# Talk to Bot
+1. `POST http://localhost:5005/webhooks/rest/webhook` with `json` payload
+    ```bash
+    {
+      "sender": "Rasa",
+      "message": "Hi there!"
+    }
+    ```
