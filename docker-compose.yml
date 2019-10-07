@@ -1,4 +1,8 @@
 version: '3.0'
+
+volumes:
+  production_traefik: {}
+
 services:
   rasa:
     image: rasa/rasa:latest-full
@@ -7,7 +11,21 @@ services:
     volumes:
       - ./:/app
     command: run --cors '*'
+
   action_server:
     image: rasa/rasa-sdk:latest
     volumes:
       - ./actions:/app/actions
+
+  traefik:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: gg_production_traefik
+    depends_on:
+      - rasa
+    volumes:
+      - production_traefik:/etc/traefik/acme
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
