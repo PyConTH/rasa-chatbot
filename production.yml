@@ -6,8 +6,8 @@ volumes:
 services:
   rasa:
     image: rasa/rasa:latest-full
-    ports:
-      - 5005:5005
+    expose:
+      - 5005
     volumes:
       - ./:/app
     command: run --cors '*'
